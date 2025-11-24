@@ -1,0 +1,5 @@
+{
+  "name": "CloneCode Pair",
+  "description": "A split-screen clone coding practice tool. Chat with Gemini on the left, write your code on the right.",
+  "requestFramePermissions": []
+}
