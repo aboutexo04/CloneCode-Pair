@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Step, StepStatus, ChartData } from '../types';
+import { Step, StepStatus, ChartData } from '@/types';
 
 interface StatsWidgetProps {
   steps: Step[];
@@ -25,7 +25,7 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({ steps }) => {
         <div className="text-2xl font-bold text-white mt-1">{percentage}%</div>
         <p className="text-xs text-gray-500">{completed} of {steps.length} steps done</p>
       </div>
-      
+
       <div className="h-16 w-16">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -43,7 +43,7 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({ steps }) => {
                 <Cell key={`cell-${index}`} fill={entry.fill} />
               ))}
             </Pie>
-            <Tooltip 
+            <Tooltip
                 contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', borderRadius: '4px', fontSize: '12px' }}
                 itemStyle={{ color: '#e5e7eb' }}
             />

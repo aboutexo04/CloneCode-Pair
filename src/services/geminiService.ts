@@ -1,8 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
-import { ChatMessage, Role } from "../types";
+import { ChatMessage, Role } from "@/types";
 
-// Initialize the client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize the client with VITE_API_KEY
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
 // System instructions for the chat mentor
 const MENTOR_SYSTEM_INSTRUCTION = `
@@ -24,12 +24,12 @@ FORMATTING:
 `;
 
 export const sendChatMessage = async (
-  history: ChatMessage[], 
-  newMessage: string, 
+  history: ChatMessage[],
+  newMessage: string,
   editorContent: string
 ): Promise<string> => {
   try {
-    const model = "gemini-3-pro-preview";
+    const model = "gemini-2.0-flash";
 
     // Format history for the API
     const recentHistory = history.slice(-15).map(msg => ({

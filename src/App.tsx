@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Send, 
-  Loader2, 
+import {
+  Send,
+  Loader2,
   Trash2,
   Code2,
   Terminal,
   Play
 } from 'lucide-react';
-import { ChatMessage, Role } from './types';
-import { sendChatMessage } from './services/geminiService';
-import { ChatMessageBubble } from './components/ChatMessageBubble';
+import { ChatMessage, Role } from '@/types';
+import { sendChatMessage } from '@/services/geminiService';
+import { ChatMessageBubble } from '@/components/ChatMessageBubble';
 
 const App: React.FC = () => {
   // State
@@ -17,7 +17,7 @@ const App: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [editorContent, setEditorContent] = useState<string>('// Start coding here...\n// Gemini will guide you on the left!');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
     const initialMsg: ChatMessage = {
       id: 'init-1',
       role: Role.MODEL,
-      text: "👋 Hi! I'm your Clone Coding Tutor. \n\nWhat would you like to build today? (e.g., *'A simple Login Form'*, *'A Netflix styling clone'*)",
+      text: "Hi! I'm your Clone Coding Tutor. \n\nWhat would you like to build today? (e.g., *'A simple Login Form'*, *'A Netflix styling clone'*)",
       timestamp: Date.now()
     };
     setMessages([initialMsg]);
@@ -53,8 +53,8 @@ const App: React.FC = () => {
 
     try {
       const responseText = await sendChatMessage(
-        [...messages, userMsg], 
-        userMsg.text, 
+        [...messages, userMsg],
+        userMsg.text,
         editorContent // Send current code context
       );
 
@@ -64,7 +64,7 @@ const App: React.FC = () => {
         text: responseText,
         timestamp: Date.now()
       };
-      
+
       setMessages(prev => [...prev, botMsg]);
     } catch (error) {
       const errorMsg: ChatMessage = {
@@ -91,7 +91,7 @@ const App: React.FC = () => {
       const end = e.currentTarget.selectionEnd;
       const value = e.currentTarget.value;
       setEditorContent(value.substring(0, start) + "  " + value.substring(end));
-      
+
       // We need to defer the cursor update slightly to work with React state update
       setTimeout(() => {
         if (editorRef.current) {
@@ -115,7 +115,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-950 text-white font-sans overflow-hidden">
-      
+
       {/* LEFT PANEL: CHAT */}
       <div className="w-1/2 flex flex-col border-r border-gray-800 bg-gray-900/30">
         {/* Chat Header */}
@@ -124,7 +124,7 @@ const App: React.FC = () => {
             <Code2 className="text-indigo-400" size={20} />
             <h1 className="font-bold text-gray-200">CloneCode AI</h1>
           </div>
-          <button 
+          <button
             onClick={clearSession}
             className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-900/10 rounded transition-colors"
             title="Reset Session"
@@ -136,10 +136,10 @@ const App: React.FC = () => {
         {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto custom-scrollbar">
           {messages.map(msg => (
-            <ChatMessageBubble 
-                key={msg.id} 
-                message={msg} 
-                onCopyCode={handleCopyCode} 
+            <ChatMessageBubble
+                key={msg.id}
+                message={msg}
+                onCopyCode={handleCopyCode}
             />
           ))}
           {isLoading && (
@@ -173,8 +173,8 @@ const App: React.FC = () => {
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isLoading}
               className={`absolute right-2 top-2 p-1.5 rounded-md transition-colors
-                ${!inputMessage.trim() || isLoading 
-                    ? 'text-gray-600 cursor-not-allowed' 
+                ${!inputMessage.trim() || isLoading
+                    ? 'text-gray-600 cursor-not-allowed'
                     : 'text-indigo-400 hover:bg-indigo-500/10'
                 }
               `}
@@ -221,7 +221,7 @@ const App: React.FC = () => {
               Gemini can read this content
           </div>
         </div>
-        
+
         {/* Editor Status Bar */}
         <div className="bg-[#007acc] text-white px-3 py-1 text-xs flex justify-between">
             <span>TypeScript / React</span>
