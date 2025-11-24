@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { ChatMessage, Role } from '../types';
+import { ChatMessage, Role } from '@/types';
 import { Bot, User, AlertCircle, Copy } from 'lucide-react';
 
 interface ChatMessageBubbleProps {
@@ -34,7 +34,7 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
             {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>
-        
+
         {message.isError ? (
            <div className="text-red-400 flex items-center gap-2 text-sm bg-red-900/20 p-3 rounded border border-red-900/50">
              <AlertCircle size={16} />
@@ -47,13 +47,13 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
                   code({node, inline, className, children, ...props} : any) {
                     const match = /language-(\w+)/.exec(className || '')
                     const codeText = String(children).replace(/\n$/, '');
-                    
+
                     return !inline ? (
                       <div className="relative group my-3 border border-gray-700 rounded-lg overflow-hidden bg-gray-950">
                         <div className="flex justify-between items-center px-3 py-1.5 bg-gray-900 border-b border-gray-800">
                              <span className="text-xs text-gray-400 font-mono">{match ? match[1] : 'code'}</span>
                              {onCopyCode && (
-                                <button 
+                                <button
                                     onClick={() => onCopyCode(codeText)}
                                     className="text-xs flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
                                     title="Copy to Editor"

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Step, StepStatus } from '../types';
-import { CheckCircle2, Circle, PlayCircle, Lock } from 'lucide-react';
+import { Step, StepStatus } from '@/types';
+import { CheckCircle2, Circle, PlayCircle } from 'lucide-react';
 
 interface StepItemProps {
   step: Step;
@@ -14,18 +14,18 @@ export const StepItem: React.FC<StepItemProps> = ({ step, isActive, onClick, onS
   const isInProgress = step.status === StepStatus.IN_PROGRESS;
 
   return (
-    <div 
+    <div
       className={`
         p-4 rounded-lg border transition-all duration-200 cursor-pointer mb-3
-        ${isActive 
-          ? 'bg-blue-900/20 border-blue-500/50 shadow-lg shadow-blue-900/20' 
+        ${isActive
+          ? 'bg-blue-900/20 border-blue-500/50 shadow-lg shadow-blue-900/20'
           : 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:border-gray-600'
         }
       `}
       onClick={() => onClick(step)}
     >
       <div className="flex items-start gap-3">
-        <button 
+        <button
           onClick={(e) => {
             e.stopPropagation();
             const nextStatus = isCompleted ? StepStatus.PENDING : StepStatus.COMPLETED;
@@ -52,7 +52,7 @@ export const StepItem: React.FC<StepItemProps> = ({ step, isActive, onClick, onS
             {step.description}
           </p>
         </div>
-        
+
         {isActive && (
            <div className="h-2 w-2 rounded-full bg-blue-500 mt-2"></div>
         )}
